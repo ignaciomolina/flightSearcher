@@ -3,3 +3,5 @@
 .settings/
 target/
 
+# MacOS files
+.DS_Store
