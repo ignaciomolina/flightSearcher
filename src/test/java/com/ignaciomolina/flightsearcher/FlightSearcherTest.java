@@ -1,3 +1,4 @@
+package com.ignaciomolina.flightsearcher;
 import org.junit.Test;
 
 /**
