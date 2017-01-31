@@ -47,6 +47,7 @@ public class FlightsLoaderTest {
     public void shouldReturnEmptyList() throws IOException {
 
         Collection<Flight> flights = loader.load(EMPTY_CSV);
+
         then(flights).isEmpty();
     }
 
