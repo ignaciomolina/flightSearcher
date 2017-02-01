@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -28,6 +29,7 @@ public class CSVLoaderTest {
         loader = new HelperLoader();
     }
 
+    @Ignore
     @Test
     public void shouldReturnEmptyList() throws IOException {
 
