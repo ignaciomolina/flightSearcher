@@ -1,46 +1,40 @@
 package com.ignaciomolina.flightsearcher.readers;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashSet;
-import java.util.Objects;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.ignaciomolina.flightsearcher.Flight;
+import com.ignaciomolina.flightsearcher.pojo.Flight;
 
-public class FlightLoader {
+/**
+ * 
+ * @author imolina
+ *
+ */
+public class FlightLoader extends CSVLoader<Flight> {
 
-    public Set<Flight> load(String filename) throws IOException {
+    private static final String PATTERN = "^(.{3}),(.{3}),(.{6}),([0-9]+(?:\\.[0-9]*)?)$";
 
-        Objects.requireNonNull(filename, "Filename cannot be null.");
-
-        Pattern patternForExtention = Pattern.compile(".*\\.csv$");
-        Matcher matcherForExtention = patternForExtention.matcher(filename);
-
-        if (!matcherForExtention.matches()) {
-
-            throw new IllegalArgumentException("File has wrong exception. " +
-                                               "Only CSV is accepted: " + filename);
-        }
-
-        String csv = new String(Files.readAllBytes(Paths.get(filename)));
-
-        Pattern patternForCSV = Pattern.compile("(.{3}),(.{3}),(.{6}),([0-9]+(?:\\.[0-9]*)?)");
-        Matcher matcherForCSV = patternForCSV.matcher(csv);
+    protected Set<Flight> parseLines(List<String> lines) {
 
         Set<Flight> flights = new HashSet<>();
+        Pattern pattern = Pattern.compile(PATTERN);
 
-        while (matcherForCSV.find()) {
+        for (String line : lines) {
 
-            String origin = matcherForCSV.group(1);
-            String destination = matcherForCSV.group(2);
-            String airline = matcherForCSV.group(3);
-            float basePrice = Float.parseFloat(matcherForCSV.group(4));
+            Matcher matcher = pattern.matcher(line);
 
-            flights.add(new Flight(origin, destination, airline, basePrice));
+            if (matcher.find()) {
+
+                String origin = matcher.group(1);
+                String destination = matcher.group(2);
+                String airline = matcher.group(3);
+                float basePrice = Float.parseFloat(matcher.group(4));
+
+                flights.add(new Flight(origin, destination, airline, basePrice));
+            }
         }
 
         return flights;

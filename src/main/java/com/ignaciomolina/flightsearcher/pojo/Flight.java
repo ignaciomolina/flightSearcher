@@ -1,4 +1,4 @@
-package com.ignaciomolina.flightsearcher;
+package com.ignaciomolina.flightsearcher.pojo;
 
 import java.util.Objects;
 

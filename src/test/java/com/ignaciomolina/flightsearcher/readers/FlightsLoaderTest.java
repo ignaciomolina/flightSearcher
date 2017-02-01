@@ -6,17 +6,20 @@ import java.io.IOException;
 import java.util.Collection;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import com.ignaciomolina.flightsearcher.Flight;
+import com.ignaciomolina.flightsearcher.pojo.Flight;
 
+/**
+ * 
+ * @author imolina
+ *
+ */
 public class FlightsLoaderTest {
 
-    private static final String RESOURCES = "src/test/resources/";
-    private static final String TWO_FLIGHTS = RESOURCES + "twoFlights.csv";
-    private static final String TWO_DUPLICATED_FLIGHTS = RESOURCES + "twoDuplicatedFlights.csv";
-    private static final String EMPTY_CSV = RESOURCES + "emptyflights.csv";
+    private static final String OTHER_CSV = "twoAirlines.csv";
+    private static final String TWO_FLIGHTS = "twoFlights.csv";
+    private static final String TWO_DUPLICATED_FLIGHTS = "twoDuplicatedFlights.csv";
 
     private FlightLoader loader;
 
@@ -35,37 +38,18 @@ public class FlightsLoaderTest {
     }
 
     @Test
+    public void shouldReturnListEmptyListWhenNoMatchFound() throws IOException {
+
+        Collection<Flight> flights = loader.load(OTHER_CSV);
+
+        then(flights).isEmpty();
+    }
+
+    @Test
     public void shouldReturnListWithNonDuplicatedFlights() throws IOException {
 
         Collection<Flight> flights = loader.load(TWO_DUPLICATED_FLIGHTS);
 
         then(flights).hasSize(1);
-    }
-
-    @Ignore
-    @Test
-    public void shouldReturnEmptyList() throws IOException {
-
-        Collection<Flight> flights = loader.load(EMPTY_CSV);
-
-        then(flights).isEmpty();
-    }
-
-    @Test(expected=IllegalArgumentException.class)
-    public void shouldThrowExceptionWhenNoRightExtention() throws IOException {
-
-        loader.load(RESOURCES + "flightscsv");
-    }
-
-    @Test(expected=IOException.class)
-    public void shouldNotAcceptNonExistingFile() throws IOException {
-
-        loader.load("non-existing.csv");
-    }
-
-    @Test(expected=NullPointerException.class)
-    public void shouldNotAcceptNullFilename() throws IOException {
-
-        loader.load(null);
     }
 }

@@ -1,10 +1,12 @@
-package com.ignaciomolina.flightsearcher;
+package com.ignaciomolina.flightsearcher.pojo;
 
 import static org.assertj.core.api.BDDAssertions.then;
 
 import org.assertj.core.api.BDDSoftAssertions;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.ignaciomolina.flightsearcher.pojo.Flight;
 
 public class FlightTest {
 
