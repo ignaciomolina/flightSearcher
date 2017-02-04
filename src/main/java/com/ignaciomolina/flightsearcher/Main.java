@@ -3,10 +3,12 @@ package com.ignaciomolina.flightsearcher;
 import java.io.IOException;
 import java.util.Collection;
 
+import com.ignaciomolina.flightsearcher.calculators.PriceCalculator;
 import com.ignaciomolina.flightsearcher.pojo.Airline;
 import com.ignaciomolina.flightsearcher.pojo.Flight;
 import com.ignaciomolina.flightsearcher.readers.AirlineLoader;
 import com.ignaciomolina.flightsearcher.readers.FlightLoader;
+import com.ignaciomolina.flightsearcher.searchers.FlightSearcher;
 
 /**
  * @author imolina

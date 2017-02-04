@@ -1,4 +1,4 @@
-package com.ignaciomolina.flightsearcher;
+package com.ignaciomolina.flightsearcher.calculators;
 
 import org.junit.Before;
 import org.mockito.MockitoAnnotations;

@@ -1,4 +1,4 @@
-package com.ignaciomolina.flightsearcher;
+package com.ignaciomolina.flightsearcher.calculators;
 
 import java.util.Collection;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.ignaciomolina.flightsearcher.Passanger;
 import com.ignaciomolina.flightsearcher.pojo.Airline;
 import com.ignaciomolina.flightsearcher.pojo.Flight;
 

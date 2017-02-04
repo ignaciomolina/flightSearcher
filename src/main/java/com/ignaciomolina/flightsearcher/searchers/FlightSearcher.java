@@ -1,6 +1,8 @@
-package com.ignaciomolina.flightsearcher;
+package com.ignaciomolina.flightsearcher.searchers;
 
 import java.util.Objects;
+
+import com.ignaciomolina.flightsearcher.calculators.PriceCalculator;
 
 /**
  * @author imolina

@@ -1,8 +1,11 @@
-package com.ignaciomolina.flightsearcher;
+package com.ignaciomolina.flightsearcher.searchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import com.ignaciomolina.flightsearcher.calculators.PriceCalculator;
+import com.ignaciomolina.flightsearcher.searchers.FlightSearcher;
 
 /**
  * @author imolina
