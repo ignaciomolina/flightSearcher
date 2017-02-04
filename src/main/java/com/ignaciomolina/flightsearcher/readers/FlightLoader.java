@@ -1,5 +1,6 @@
 package com.ignaciomolina.flightsearcher.readers;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,7 +18,8 @@ public class FlightLoader extends CSVLoader<Flight> {
 
     private static final String PATTERN = "^(.{3}),(.{3}),(.{6}),([0-9]+(?:\\.[0-9]*)?)$";
 
-    protected Set<Flight> parseLines(List<String> lines) {
+    @Override
+    protected Collection<Flight> parseLines(List<String> lines) {
 
         Set<Flight> flights = new HashSet<>();
         Pattern pattern = Pattern.compile(PATTERN);

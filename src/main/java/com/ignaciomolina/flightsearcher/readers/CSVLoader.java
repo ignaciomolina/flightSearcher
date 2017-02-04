@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * 
@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  */
 public abstract class CSVLoader<T> {
 
-    public Set<T> load(String filename) throws IOException {
+    public Collection<T> load(String filename) throws IOException {
 
         Objects.requireNonNull(filename, "Filename cannot be null.");
 
@@ -29,16 +29,17 @@ public abstract class CSVLoader<T> {
         if (!matcher.matches()) {
 
             throw new IllegalArgumentException("File has wrong extention. " +
-                                               "Only CSV is accepted: " + filename);
+                                               "Only CSV is accepted: " +
+                                               filename);
         }
 
-        List<String> lines = new ArrayList<>();
+        List<String> lines;
 
         try (InputStream is = this.getClass().getResourceAsStream(filename);
              BufferedReader br = new BufferedReader(new InputStreamReader(is,
                                                      StandardCharsets.UTF_8))) {
 
-             br.lines().forEach(e -> lines.add(e));
+             lines = br.lines().collect(Collectors.toList());
         } catch (Exception e) {
 
             throw new IllegalArgumentException("File " + filename + " cannot " +
@@ -48,5 +49,5 @@ public abstract class CSVLoader<T> {
         return parseLines(lines);
     }
 
-    protected abstract Set<T> parseLines(List<String> lines);
+    protected abstract Collection<T> parseLines(List<String> lines);
 }
