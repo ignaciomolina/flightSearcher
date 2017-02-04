@@ -27,7 +27,7 @@ public class AirlineLoader extends CSVLoader<Airline> {
 
                 String code = matcher.group(1);
                 String name = matcher.group(2);
-                float infantPrice = Float.parseFloat(matcher.group(4));
+                float infantPrice = Float.parseFloat(matcher.group(3));
 
                 airlines.add(new Airline(code, name, infantPrice));
             }
