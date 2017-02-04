@@ -30,6 +30,19 @@ public class FlightsLoaderTest {
     }
 
     @Test
+    public void shouldReturnListWithNonDuplicatedFlights() throws IOException {
+
+        Collection<Flight> flights = loader.load(TWO_DUPLICATED_FLIGHTS);
+
+        then(flights).hasSize(1);
+        then(flights).extractingResultOf("getOrigin", String.class).contains("CPH");
+        then(flights).extractingResultOf("getDestination", String.class).contains("FRA");
+        then(flights).extractingResultOf("getAirline", String.class).contains("IB");
+        then(flights).extractingResultOf("getCode", String.class).contains("IB2818");
+        then(flights).extractingResultOf("getBasePrice", Float.class).contains(186.0F);
+    }
+
+    @Test
     public void shouldReturnListWithTwoFlights() throws IOException {
 
         Collection<Flight> flights = loader.load(TWO_FLIGHTS);
@@ -43,13 +56,5 @@ public class FlightsLoaderTest {
         Collection<Flight> flights = loader.load(OTHER_CSV);
 
         then(flights).isEmpty();
-    }
-
-    @Test
-    public void shouldReturnListWithNonDuplicatedFlights() throws IOException {
-
-        Collection<Flight> flights = loader.load(TWO_DUPLICATED_FLIGHTS);
-
-        then(flights).hasSize(1);
     }
 }
