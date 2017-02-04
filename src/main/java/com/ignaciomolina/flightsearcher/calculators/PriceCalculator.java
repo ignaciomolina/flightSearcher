@@ -1,10 +1,10 @@
 package com.ignaciomolina.flightsearcher.calculators;
 
+import static java.util.stream.Collectors.toMap;
+
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import com.ignaciomolina.flightsearcher.Passanger;
 import com.ignaciomolina.flightsearcher.pojo.Airline;
@@ -12,12 +12,13 @@ import com.ignaciomolina.flightsearcher.pojo.Flight;
 
 public class PriceCalculator {
 
-    private static final float DATE_DISCOUNT_FIRST_FACTOR = 0.8F;
-    private static final float DATE_DISCOUNT_SECOND_FACTOR = 1.0F;
-    private static final float DATE_DISCOUNT_THIRD_FACTOR = 1.2F;
-    private static final float DATE_DISCOUNT_FOURTH_FACTOR = 1.5F;
+    // TODO: Get values from a configuration file.
+    private static final double DATE_DISCOUNT_FIRST_FACTOR = 0.8D;
+    private static final double DATE_DISCOUNT_SECOND_FACTOR = 1.0D;
+    private static final double DATE_DISCOUNT_THIRD_FACTOR = 1.2D;
+    private static final double DATE_DISCOUNT_FOURTH_FACTOR = 1.5D;
 
-    private static final float CHILD_DISCOUNT_FACTOR = 0.66F;
+    private static final double CHILD_DISCOUNT_FACTOR = 0.67D;
 
     private Map<String, Airline> airlines;
 
@@ -26,17 +27,17 @@ public class PriceCalculator {
         Objects.requireNonNull(airlines, "Airlines collection cannot be null.");
 
         this.airlines = airlines.stream()
-                                    .collect(Collectors.toMap(Airline::getCode,
-                                                              airline -> airline));
+                                    .collect(toMap(Airline::getCode,
+                                                   airline -> airline));
     }
 
-    public float calculate(Flight flight, List<Passanger> passangers, int days) {
+    public double calculate(Flight flight, Collection<Passanger> passangers, int days) {
 
-        float result = 0.0F;
+        double result = 0.0D;
 
         for (Passanger passanger : passangers) {
 
-            float price = flight.getBasePrice();
+            double price = flight.getBasePrice();
 
             price = applyDateDiscount(price, days);
             price = applyAgeDiscount(flight.getAirline(), price, passanger);
@@ -46,9 +47,9 @@ public class PriceCalculator {
         return result;
     }
 
-    private float applyDateDiscount(float price, int days) {
+    private double applyDateDiscount(double price, int days) {
 
-        float result = price;
+        double result = price;
 
         if (days >= 31) {
 
@@ -67,9 +68,9 @@ public class PriceCalculator {
         return result;
     }
 
-    private float applyAgeDiscount(String airlineCode, float price, Passanger passanger) {
+    private double applyAgeDiscount(String airlineCode, double price, Passanger passanger) {
 
-        float result = price;
+        double result = price;
 
         if (Passanger.INFANT.equals(passanger)) {
 

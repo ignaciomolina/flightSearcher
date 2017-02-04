@@ -7,13 +7,15 @@ public class Flight {
     private String origin;
     private String destination;
     private String airline;
+    private String code;
     private float basePrice;
 
-    public Flight(String origin, String destination, String airline, float basePrice) {
+    public Flight(String origin, String destination, String airline, String code, float basePrice) {
 
         this.origin = Objects.requireNonNull(origin, "Origin cannot be null.");
         this.destination = Objects.requireNonNull(destination, "Destination cannot be null.");
         this.airline = Objects.requireNonNull(airline, "Airline cannot be null.");
+        this.code = Objects.requireNonNull(code, "Code cannot be null.");
         this.basePrice = basePrice;
     }
 
@@ -32,6 +34,11 @@ public class Flight {
         return airline;
     }
 
+    public String getCode() {
+
+        return code;
+    }
+
     public float getBasePrice() {
 
         return basePrice;
@@ -43,8 +50,9 @@ public class Flight {
         final int prime = 31;
         int result = 1;
 
-        result = prime * result + airline.hashCode();
         result = prime * result + Float.floatToIntBits(basePrice);
+        result = prime * result + code.hashCode();
+        result = prime * result + airline.hashCode();
         result = prime * result + destination.hashCode();
         result = prime * result + origin.hashCode();
 
@@ -74,6 +82,7 @@ public class Flight {
         if (!origin.equals(other.origin) ||
             !destination.equals(other.destination) ||
             !airline.equals(other.airline) ||
+            !code.equals(other.code) ||
             basePrice != other.basePrice) {
 
             return false;
