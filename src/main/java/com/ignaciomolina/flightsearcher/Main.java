@@ -27,8 +27,9 @@ import com.ignaciomolina.flightsearcher.searchers.FlightSearcher;
  */
 public class Main {
 
-    private static final String USEAGE_EXAMPLE = "MAD BCN 40 \"2 adult, 2 children, 1 infants\"";
-
+    private static final String USEAGE_EXAMPLE = "FlightSearcher MAD " +
+                                                "BCN 40 \"2 adult, 2 children" +
+                                                ", 1 infants\"";
     private static final String RESOURCE = "/com/ignaciomolina/flightsearcher/";
     private static final String AIRLINES_CSV = RESOURCE + "airlines.csv";
     private static final String FLIGHTS_CSV = RESOURCE + "flights.csv";
@@ -124,19 +125,20 @@ public class Main {
         if (args.length != 4) {
 
             System.err.println("FlightSearcher <origin> <destination> <days " +
-                               "to departure> \"<passangers>\"");
-            System.exit(0);
-        }
-
-        Main main = new Main();
-
-        try {
-
-            main.start(args);
-        } catch (Exception e) {
-
-            System.err.println("Error due to: " + e.getMessage() + "\n" +
+                               "to departure> \"<passangers>\"\n" +
                                "Example: " + USEAGE_EXAMPLE);
+        } else {
+
+            Main main = new Main();
+
+            try {
+
+                main.start(args);
+            } catch (Exception e) {
+
+                System.err.println("Error due to: " + e.getMessage() + "\n" +
+                                   "Example: " + USEAGE_EXAMPLE);
+            }
         }
     }
 }
