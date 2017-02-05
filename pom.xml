@@ -28,7 +28,7 @@
 					<archive>
 						<manifest>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-							<mainClass>Main</mainClass>
+							<mainClass>com.ignaciomolina.flightsearcher.Main</mainClass>
 						</manifest>
 						<manifestEntries>
 							<Implementation-Build-SCM>${buildNumber}</Implementation-Build-SCM>
