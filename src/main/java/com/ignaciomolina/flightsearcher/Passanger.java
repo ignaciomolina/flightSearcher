@@ -20,6 +20,16 @@ public enum Passanger {
         this.plural = plural;
     }
 
+    public String getSingular() {
+
+        return singular;
+    }
+
+    public String getPlural() {
+
+        return plural;
+    }
+
     public static Passanger byName(String name) {
 
         for (Passanger passanger : Passanger.values()) {

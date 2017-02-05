@@ -10,6 +10,11 @@ import com.ignaciomolina.flightsearcher.Passanger;
 import com.ignaciomolina.flightsearcher.pojo.Airline;
 import com.ignaciomolina.flightsearcher.pojo.Flight;
 
+/**
+ * 
+ * @author imolina
+ *
+ */
 public class PriceCalculator {
 
     // TODO: Get values from a configuration file.

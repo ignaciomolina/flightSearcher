@@ -2,6 +2,11 @@ package com.ignaciomolina.flightsearcher.pojo;
 
 import java.util.Objects;
 
+/**
+ * 
+ * @author imolina
+ *
+ */
 public class Airline {
 
     private String code;

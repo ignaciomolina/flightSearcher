@@ -10,6 +10,11 @@ import org.junit.Test;
 
 import com.ignaciomolina.flightsearcher.pojo.Airline;
 
+/**
+ * 
+ * @author imolina
+ *
+ */
 public class AirlineLoaderTest {
 
     private static final String OTHER_CSV = "twoFlights.csv";

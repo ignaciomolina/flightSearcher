@@ -8,6 +8,11 @@ import org.junit.Test;
 
 import com.ignaciomolina.flightsearcher.pojo.Flight;
 
+/**
+ * 
+ * @author imolina
+ *
+ */
 public class FlightTest {
 
     private static final float PRICE = 186.0F;

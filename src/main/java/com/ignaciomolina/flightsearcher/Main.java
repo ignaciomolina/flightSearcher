@@ -1,12 +1,18 @@
 package com.ignaciomolina.flightsearcher;
 
+import static java.util.stream.Collectors.groupingBy;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.StringJoiner;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import com.ignaciomolina.flightsearcher.calculators.PriceCalculator;
 import com.ignaciomolina.flightsearcher.pojo.Airline;
@@ -45,7 +51,7 @@ public class Main {
 
         List<Flight> result = searcher.search(origin, destination, passangers, days);
 
-        System.out.println(args[3] + ", " +
+        System.out.println(PassangersToText(passangers) + ", " +
                            days + " day" + (days != 1 ? "s" : "") + " to the departure date, " +
                            "flyaing " + origin + " -> " + destination);
         result.stream()
@@ -92,6 +98,25 @@ public class Main {
         }
 
         return passangers;
+    }
+
+    private String PassangersToText(Collection<Passanger> passangers) {
+
+        Map<Passanger, Long> index = passangers.stream()
+                                                    .collect(groupingBy(Function.identity(),
+                                                                        Collectors.counting()));
+
+        StringJoiner message = new StringJoiner(", ");
+
+        index.entrySet().stream().forEach(e -> {
+
+            long number = e.getValue();
+            Passanger p = e.getKey();
+
+            message.add(number + " " + (number != 1 ? p.getPlural() : p.getSingular()));
+        });
+
+        return message.toString();
     }
 
     public static void main(String[] args) throws IOException {

@@ -6,6 +6,11 @@ import org.assertj.core.api.BDDSoftAssertions;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * @author imolina
+ *
+ */
 public class AirlineTest {
 
     private static final float INFANT_PRICE = 18;
