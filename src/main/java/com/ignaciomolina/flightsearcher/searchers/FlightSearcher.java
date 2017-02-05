@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.ignaciomolina.flightsearcher.Passanger;
 import com.ignaciomolina.flightsearcher.calculators.PriceCalculator;
@@ -27,15 +28,17 @@ public class FlightSearcher {
         Objects.requireNonNull(flights, "Flights collection cannot be null.");
 
         this.flightsIndex = flights.stream()
-                                        .collect(groupingBy(f -> f.getOrigin() + "-" +
-                                                                 f.getDestination()));
+                                .collect(groupingBy(f -> f.getOrigin() + "-" +
+                                                         f.getDestination()));
     }
 
-    public List<Flight> search(String origin, String destination, Collection<Passanger> passangers, int days) {
+    public List<Flight> search(String origin, String destination,
+                               Collection<Passanger> passangers, int days) {
 
-        List<Flight> flights = flightsIndex.get(origin + "-" + destination);
+        List<Flight> foundFlights = flightsIndex.get(origin + "-" + destination);
 
-        flights.stream().sorted(new Comparator<Flight>() {
+        List<Flight> sorted = foundFlights.stream()
+                                              .sorted(new Comparator<Flight>() {
 
             @Override
             public int compare(Flight flight1, Flight flight2) {
@@ -45,8 +48,8 @@ public class FlightSearcher {
 
                 return Double.compare(price1, price2);
             }
-        });
+        }).collect(Collectors.toList());
 
-        return flights;
+        return sorted;
     }
 }
