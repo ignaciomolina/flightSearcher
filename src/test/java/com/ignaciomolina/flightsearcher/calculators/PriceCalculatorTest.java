@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.ignaciomolina.flightsearcher.Passanger;
+import com.ignaciomolina.flightsearcher.Passenger;
 import com.ignaciomolina.flightsearcher.pojo.Airline;
 import com.ignaciomolina.flightsearcher.pojo.Flight;
 
@@ -35,7 +35,7 @@ public class PriceCalculatorTest {
 
     private static final String AIRLINE_CODE = "IB";
 
-    private Collection<Passanger> passangers;
+    private Collection<Passenger> passengers;
     private Collection<Airline> airlinesWithInfantDiscount;
     private PriceCalculator calculator;
 
@@ -50,7 +50,7 @@ public class PriceCalculatorTest {
         given(flight.getAirline()).willReturn(AIRLINE_CODE);
         given(airline.getCode()).willReturn(AIRLINE_CODE);
 
-        passangers = new ArrayList<>();
+        passengers = new ArrayList<>();
         airlinesWithInfantDiscount = new ArrayList<>();
         airlinesWithInfantDiscount.add(airline);
         calculator = new PriceCalculator(airlinesWithInfantDiscount);
@@ -63,7 +63,7 @@ public class PriceCalculatorTest {
 
         given(flight.getBasePrice()).willReturn(basePrice);
 
-        double price = calculator.calculate(flight, passangers, days);
+        double price = calculator.calculate(flight, passengers, days);
 
         then(price).isEqualTo(expected);
     }
@@ -71,7 +71,7 @@ public class PriceCalculatorTest {
     @Test
     public void shouldReturnAdultPriceWithDiscountFactorOne() {
 
-        passangers.add(Passanger.ADULT);
+        passengers.add(Passenger.ADULT);
 
         checkDiscount(DISCOUNT_FACTOR1, DAY_IN_FACTOR1);
     }
@@ -79,7 +79,7 @@ public class PriceCalculatorTest {
     @Test
     public void shouldReturnAdultPriceWithDiscountFactorTwo() {
 
-        passangers.add(Passanger.ADULT);
+        passengers.add(Passenger.ADULT);
 
         checkDiscount(DISCOUNT_FACTOR2, DAY_IN_FACTOR2);
     }
@@ -87,7 +87,7 @@ public class PriceCalculatorTest {
     @Test
     public void shouldReturnAdultPriceWithDiscountFactorThree() {
 
-        passangers.add(Passanger.ADULT);
+        passengers.add(Passenger.ADULT);
 
         checkDiscount(DISCOUNT_FACTOR3, DAY_IN_FACTOR3);
     }
@@ -95,7 +95,7 @@ public class PriceCalculatorTest {
     @Test
     public void shouldReturnAdultPriceWithDiscountFactorFourth() {
 
-        passangers.add(Passanger.ADULT);
+        passengers.add(Passenger.ADULT);
 
         checkDiscount(DISCOUNT_FACTOR4, DAY_IN_FACTOR4);
     }
@@ -103,7 +103,7 @@ public class PriceCalculatorTest {
     @Test
     public void shouldReturnChildPriceWithDiscountFactorOne() {
 
-        passangers.add(Passanger.CHILD);
+        passengers.add(Passenger.CHILD);
         double factor = DISCOUNT_FACTOR1 * CHILD_DISCOUNT_FACTOR;
 
         checkDiscount(factor, DAY_IN_FACTOR1);
@@ -112,7 +112,7 @@ public class PriceCalculatorTest {
     @Test
     public void shouldReturnChildPriceWithDiscountFactorTwo() {
 
-        passangers.add(Passanger.CHILD);
+        passengers.add(Passenger.CHILD);
         double factor = DISCOUNT_FACTOR2 * CHILD_DISCOUNT_FACTOR;
 
         checkDiscount(factor, DAY_IN_FACTOR2);
@@ -121,7 +121,7 @@ public class PriceCalculatorTest {
     @Test
     public void shouldReturnChildPriceWithDiscountFactorThree() {
 
-        passangers.add(Passanger.CHILD);
+        passengers.add(Passenger.CHILD);
         double factor = DISCOUNT_FACTOR3 * CHILD_DISCOUNT_FACTOR;
 
         checkDiscount(factor, DAY_IN_FACTOR3);
@@ -130,7 +130,7 @@ public class PriceCalculatorTest {
     @Test
     public void shouldReturnChildPriceWithDiscountFactorFourth() {
 
-        passangers.add(Passanger.CHILD);
+        passengers.add(Passenger.CHILD);
         double factor = DISCOUNT_FACTOR4 * CHILD_DISCOUNT_FACTOR;
 
         checkDiscount(factor, DAY_IN_FACTOR4);
@@ -139,7 +139,7 @@ public class PriceCalculatorTest {
     @Test
     public void shouldReturnChildPriceWhenAirlineHasNoInfantDiscount() {
 
-        passangers.add(Passanger.INFANT);
+        passengers.add(Passenger.INFANT);
         double factor = DISCOUNT_FACTOR1 * CHILD_DISCOUNT_FACTOR;
 
         given(flight.getAirline()).willReturn("U2");
@@ -150,17 +150,17 @@ public class PriceCalculatorTest {
     @Test
     public void shouldReturnConstantPriceForInfant() {
 
-        passangers.add(Passanger.INFANT);
+        passengers.add(Passenger.INFANT);
         float basePrice = 100.0F;
         float expected = 15.0F;
 
         given(flight.getBasePrice()).willReturn(basePrice);
         given(airline.getInfantPrice()).willReturn(expected);
 
-        double price1 = calculator.calculate(flight, passangers, DAY_IN_FACTOR1);
-        double price2 = calculator.calculate(flight, passangers, DAY_IN_FACTOR2);
-        double price3 = calculator.calculate(flight, passangers, DAY_IN_FACTOR3);
-        double price4 = calculator.calculate(flight, passangers, DAY_IN_FACTOR4);
+        double price1 = calculator.calculate(flight, passengers, DAY_IN_FACTOR1);
+        double price2 = calculator.calculate(flight, passengers, DAY_IN_FACTOR2);
+        double price3 = calculator.calculate(flight, passengers, DAY_IN_FACTOR3);
+        double price4 = calculator.calculate(flight, passengers, DAY_IN_FACTOR4);
 
         then(price1).isEqualTo(expected);
         then(price2).isEqualTo(expected);
@@ -169,20 +169,20 @@ public class PriceCalculatorTest {
     }
 
     @Test
-    public void shouldReturnZeroPriceWhenEmptyPassangersList() {
+    public void shouldReturnZeroPriceWhenEmptypassengersList() {
 
-        double price = calculator.calculate(flight, passangers, DAY_IN_FACTOR1);
+        double price = calculator.calculate(flight, passengers, DAY_IN_FACTOR1);
         then(price).isZero();
     }
 
     @Test(expected = NullPointerException.class)
     public void shouldNotAcceptNullFlightWhenCalculate() {
 
-        calculator.calculate(null, passangers, DAY_IN_FACTOR1);
+        calculator.calculate(null, passengers, DAY_IN_FACTOR1);
     }
 
     @Test(expected = NullPointerException.class)
-    public void shouldNotAcceptNullPassangersListWhenCalculate() {
+    public void shouldNotAcceptNullpassengersListWhenCalculate() {
 
         calculator.calculate(flight, null, DAY_IN_FACTOR1);
     }

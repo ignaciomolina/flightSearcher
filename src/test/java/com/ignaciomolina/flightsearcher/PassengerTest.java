@@ -9,58 +9,58 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class PassangerTest {
+public class PassengerTest {
 
-    @Parameter(0) public Passanger passanger;
+    @Parameter(0) public Passenger passenger;
     @Parameter(1) public String singular;
     @Parameter(2) public String plural;
 
-    @Parameters(name="Passanger={0}, singular={1}, plural={2}")
+    @Parameters(name="passenger={0}, singular={1}, plural={2}")
     public static Object[][] data() {
 
         return new Object[][] {
-            {Passanger.ADULT, "adult", "adults"},
-            {Passanger.CHILD, "child", "children"},
-            {Passanger.INFANT, "infant", "infants"}
+            {Passenger.ADULT, "adult", "adults"},
+            {Passenger.CHILD, "child", "children"},
+            {Passenger.INFANT, "infant", "infants"}
         };
     }
 
     @Test
-    public void shouldReturnRightPassangerBasedOnSingular() {
+    public void shouldReturnRightpassengerBasedOnSingular() {
 
-        then(Passanger.byName(singular)).isEqualTo(passanger);
+        then(Passenger.byName(singular)).isEqualTo(passenger);
     }
 
     @Test
-    public void shouldReturnRightPassangerBasedOnPlural() {
+    public void shouldReturnRightpassengerBasedOnPlural() {
 
-        then(Passanger.byName(plural)).isEqualTo(passanger);
+        then(Passenger.byName(plural)).isEqualTo(passenger);
     }
 
     @Test
     public void shouldReturnSingularName() {
 
-        then(passanger.getSingular()).isEqualTo(singular);
+        then(passenger.getSingular()).isEqualTo(singular);
     }
 
     @Test
     public void shouldReturnPluralName() {
 
-        then(passanger.getPlural()).isEqualTo(plural);
+        then(passenger.getPlural()).isEqualTo(plural);
     }
 
     @Test
     public void shouldCoverageValueOfAndValues() {
 
-        for (Passanger passanger : Passanger.values()) {
+        for (Passenger passenger : Passenger.values()) {
 
-            then(Passanger.valueOf(passanger.name())).isSameAs(passanger);
+            then(Passenger.valueOf(passenger.name())).isSameAs(passenger);
         }
     }
 
     @Test(expected=IllegalArgumentException.class)
     public void shouldThrowExceptionWhenNameDoesNotMatch() {
 
-        then(Passanger.byName("wrong")).isEqualTo(passanger);
+        then(Passenger.byName("wrong")).isEqualTo(passenger);
     }
 }

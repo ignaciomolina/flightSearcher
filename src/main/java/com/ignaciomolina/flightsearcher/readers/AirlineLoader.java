@@ -12,7 +12,6 @@ import com.ignaciomolina.flightsearcher.pojo.Airline;
 /**
  * 
  * @author imolina
- *
  */
 public class AirlineLoader extends CSVLoader<Airline> {
 

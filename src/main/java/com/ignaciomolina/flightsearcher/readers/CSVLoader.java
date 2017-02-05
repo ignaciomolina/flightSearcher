@@ -1,7 +1,6 @@
 package com.ignaciomolina.flightsearcher.readers;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -13,13 +12,20 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
+ * Abstract class that reads CSV files and delegate line parsing.
  * 
+ * @param <T> Type of the objects that will contain the load collection.
  * @author imolina
- *
  */
 public abstract class CSVLoader<T> {
 
-    public Collection<T> load(String filename) throws IOException {
+    /**
+     * Validates CSV files and load a collection according to an abstract method.
+     * 
+     * @param filename Route of the file inside the jar file scope. 
+     * @return A collection of {@code T}.
+     */
+    public Collection<T> load(String filename) {
 
         Objects.requireNonNull(filename, "Filename cannot be null.");
 
@@ -44,7 +50,7 @@ public abstract class CSVLoader<T> {
         } catch (Exception e) {
 
             throw new IllegalArgumentException("File " + filename + " cannot " +
-                                               "be found in jar.");
+                                               "be found in jar.", e);
         }
     }
 

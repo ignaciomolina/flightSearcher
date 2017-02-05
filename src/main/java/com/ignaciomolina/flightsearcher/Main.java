@@ -2,7 +2,6 @@ package com.ignaciomolina.flightsearcher;
 
 import static java.util.stream.Collectors.groupingBy;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -22,8 +21,9 @@ import com.ignaciomolina.flightsearcher.readers.FlightLoader;
 import com.ignaciomolina.flightsearcher.searchers.FlightSearcher;
 
 /**
+ * Main class of the project.
+ * 
  * @author imolina
- *
  */
 public class Main {
 
@@ -34,12 +34,17 @@ public class Main {
     private static final String AIRLINES_CSV = RESOURCE + "airlines.csv";
     private static final String FLIGHTS_CSV = RESOURCE + "flights.csv";
 
-    private void start(String[] args) throws IOException {
+    /**
+     * Method that reads request params and activate search.
+     * 
+     * @param args requests params
+     */
+     public void start(String[] args) {
 
         String origin = validateAirport(args[0]);
         String destination = validateAirport(args[1]);;
         int days = Integer.parseInt(args[2]);
-        Collection <Passanger> passangers = parsePassangers(args[3]);
+        Collection <Passenger> Passengers = parsePassengers(args[3]);
 
         FlightLoader flightLoader = new FlightLoader();
         AirlineLoader airlineLoader = new AirlineLoader();
@@ -50,15 +55,15 @@ public class Main {
         PriceCalculator calculator = new PriceCalculator(airlines);
         FlightSearcher searcher = new FlightSearcher(flights, calculator);
 
-        List<Flight> result = searcher.search(origin, destination, passangers, days);
+        List<Flight> result = searcher.search(origin, destination, Passengers, days);
 
-        System.out.println(PassangersToText(passangers) + ", " +
+        System.out.println(PassengersToText(Passengers) + ", " +
                            days + " day" + (days != 1 ? "s" : "") + " to the departure date, " +
                            "flyaing " + origin + " -> " + destination);
         result.stream()
                     .map(f -> f.getCode() + ", " + 
                               String.format("%.02f",
-                                            calculator.calculate(f, passangers,
+                                            calculator.calculate(f, Passengers,
                                                                  days)) + " €")
                     .forEach(System.out::println);
     }
@@ -78,9 +83,9 @@ public class Main {
         return airport;
     }
 
-    private Collection<Passanger> parsePassangers(String request) {
+    private Collection<Passenger> parsePassengers(String request) {
 
-        List<Passanger> passangers = new ArrayList<>();
+        List<Passenger> Passengers = new ArrayList<>();
 
         Pattern pattern = Pattern.compile("(\\d+) ([a-zA-Z]+)");
         Matcher matcher = pattern.matcher(request);
@@ -88,22 +93,22 @@ public class Main {
         while (matcher.find()) {
 
             int number = Integer.parseInt(matcher.group(1));
-            Passanger passanger = Passanger.byName(matcher.group(2).toLowerCase());
+            Passenger passenger = Passenger.byName(matcher.group(2).toLowerCase());
 
-            passangers.addAll(Collections.nCopies(number, passanger));
+            Passengers.addAll(Collections.nCopies(number, passenger));
         }
 
-        if (passangers.isEmpty()) {
+        if (Passengers.isEmpty()) {
 
-            throw new IllegalArgumentException("It should be at least one passanger.");
+            throw new IllegalArgumentException("It should be at least one Passenger.");
         }
 
-        return passangers;
+        return Passengers;
     }
 
-    private String PassangersToText(Collection<Passanger> passangers) {
+    private String PassengersToText(Collection<Passenger> Passengers) {
 
-        Map<Passanger, Long> index = passangers.stream()
+        Map<Passenger, Long> index = Passengers.stream()
                                                     .collect(groupingBy(Function.identity(),
                                                                         Collectors.counting()));
 
@@ -112,7 +117,7 @@ public class Main {
         index.entrySet().stream().forEach(e -> {
 
             long number = e.getValue();
-            Passanger p = e.getKey();
+            Passenger p = e.getKey();
 
             message.add(number + " " + (number != 1 ? p.getPlural() : p.getSingular()));
         });
@@ -120,12 +125,17 @@ public class Main {
         return message.toString();
     }
 
-    public static void main(String[] args) throws IOException {
+    /**
+     * Main method of the project.
+     * 
+     * @param args service parameters
+     */
+    public static void main(String[] args) {
 
         if (args.length != 4) {
 
             System.err.println("FlightSearcher <origin> <destination> <days " +
-                               "to departure> \"<passangers>\"\n" +
+                               "to departure> \"<passengers>\"\n" +
                                "Example: " + USEAGE_EXAMPLE);
         } else {
 

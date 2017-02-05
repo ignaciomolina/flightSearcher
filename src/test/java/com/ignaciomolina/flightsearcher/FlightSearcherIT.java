@@ -52,10 +52,10 @@ public class FlightSearcherIT {
     }
 
     @Test
-    public void shouldPrintErrorMessageWhenNoPassangers() throws IOException {
+    public void shouldPrintErrorMessageWhenNopassengers() throws IOException {
 
         String [] args = {"LHR", "IST", "15", "0 adults"};
-        String expected = "Error due to: It should be at least one passanger.\n" +
+        String expected = "Error due to: It should be at least one passenger.\n" +
                           USEAGE_EXAMPLE;
 
         checkErrorMessage(args, expected);
@@ -77,7 +77,7 @@ public class FlightSearcherIT {
 
         String [] args = {"LHR", "IST", "15"};
         String expected = "FlightSearcher <origin> <destination> <days " +
-                           "to departure> \"<passangers>\"\n" +
+                           "to departure> \"<passengers>\"\n" +
                            USEAGE_EXAMPLE;
 
         checkErrorMessage(args, expected);

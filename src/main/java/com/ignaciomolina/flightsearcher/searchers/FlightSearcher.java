@@ -10,19 +10,26 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.ignaciomolina.flightsearcher.Passanger;
+import com.ignaciomolina.flightsearcher.Passenger;
 import com.ignaciomolina.flightsearcher.calculators.PriceCalculator;
 import com.ignaciomolina.flightsearcher.pojo.Flight;
 
 /**
+ * Class that looks for flights with an specific route.
+ * 
  * @author imolina
- *
  */
 public class FlightSearcher {
 
-    private PriceCalculator calculator;
+    PriceCalculator calculator;
     private Map<String, List<Flight>> flightsIndex;
 
+    /**
+     * Constructor of the FlightSearch class.
+     * 
+     * @param flights Flights to be indexed
+     * @param calculator Calculator of prices
+     */
     public FlightSearcher(Collection<Flight> flights, PriceCalculator calculator) {
 
         this.calculator = Objects.requireNonNull(calculator, "PriceCalculator cannot be null.");
@@ -33,8 +40,18 @@ public class FlightSearcher {
                                                          f.getDestination()));
     }
 
+    /**
+     * Search for all the flights that have the wished route and return a list
+     * sorted by price.
+     * 
+     * @param origin Departure airport code
+     * @param destination Arrival airport code
+     * @param passengers Collection of passengers for price calculation
+     * @param days Number of days left to the departure day
+     * @return list of matching flights sorted by price
+     */
     public List<Flight> search(String origin, String destination,
-                               Collection<Passanger> passangers, int days) {
+                               Collection<Passenger> passengers, int days) {
 
         String route = origin + "-" + destination;
 
@@ -46,8 +63,8 @@ public class FlightSearcher {
             @Override
             public int compare(Flight flight1, Flight flight2) {
 
-                double price1 = calculator.calculate(flight1, passangers, days);
-                double price2 = calculator.calculate(flight2, passangers, days);
+                double price1 = calculator.calculate(flight1, passengers, days);
+                double price2 = calculator.calculate(flight2, passengers, days);
 
                 return Double.compare(price1, price2);
             }

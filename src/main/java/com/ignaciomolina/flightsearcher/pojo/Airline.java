@@ -3,9 +3,9 @@ package com.ignaciomolina.flightsearcher.pojo;
 import java.util.Objects;
 
 /**
+ * Class that contains the airlines information.
  * 
  * @author imolina
- *
  */
 public class Airline {
 
@@ -13,6 +13,13 @@ public class Airline {
     private String name;
     private float infantPrice;
 
+    /**
+     * Constructor of the Airline class.
+     * 
+     * @param code The code that identify the airline
+     * @param name Name of the airline
+     * @param infantPrice Fixed flight price for infant passengers
+     */
     public Airline(String code, String name, float infantPrice) {
 
         this.code = Objects.requireNonNull(code, "Code cannot be null.");
@@ -20,16 +27,31 @@ public class Airline {
         this.infantPrice = infantPrice;
     }
 
+    /**
+     * Method that gets the airline code.
+     * 
+     * @return airline code
+     */
     public String getCode() {
 
         return code;
     }
 
+    /**
+     * Method that gets the airline name.
+     * 
+     * @return airline name
+     */
     public String getName() {
 
         return name;
     }
 
+    /**
+     * Method that gets the airline fixed flight price for infants passangers.
+     * 
+     * @return fixed flight for infants
+     */
     public float getInfantPrice() {
 
         return infantPrice;

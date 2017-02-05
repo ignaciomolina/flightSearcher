@@ -3,9 +3,9 @@ package com.ignaciomolina.flightsearcher.pojo;
 import java.util.Objects;
 
 /**
+ * Class that contains the flight information.
  * 
  * @author imolina
- *
  */
 public class Flight {
 
@@ -15,6 +15,15 @@ public class Flight {
     private String code;
     private float basePrice;
 
+    /**
+     * Constructor of the Flight class.
+     * 
+     * @param origin Departure airport code
+     * @param destination Arrival airport code
+     * @param airline Airline owner of the flight
+     * @param code Code that identifies the flight
+     * @param basePrice price of the flight without any discount applied.
+     */
     public Flight(String origin, String destination, String airline, String code, float basePrice) {
 
         this.origin = Objects.requireNonNull(origin, "Origin cannot be null.");
@@ -24,26 +33,51 @@ public class Flight {
         this.basePrice = basePrice;
     }
 
+    /**
+     * Method that gets the departure airport code.
+     * 
+     * @return departure airport code
+     */
     public String getOrigin() {
 
         return origin;
     }
 
+    /**
+     * Method that gets the arrival airport code.
+     * 
+     * @return departure airport code
+     */
     public String getDestination() {
 
         return destination;
     }
 
+    /**
+     * Method that gets the airline that owns the flight.
+     * 
+     * @return airline identification code
+     */
     public String getAirline() {
 
         return airline;
     }
 
+    /**
+     * Method that gets the flight code.
+     * 
+     * @return code that identifies the flight
+     */
     public String getCode() {
 
         return code;
     }
 
+    /**
+     * Method that gets the flight price without any discount.
+     * 
+     * @return base price of the flight
+     */
     public float getBasePrice() {
 
         return basePrice;

@@ -12,7 +12,6 @@ import com.ignaciomolina.flightsearcher.pojo.Flight;
 /**
  * 
  * @author imolina
- *
  */
 public class FlightLoader extends CSVLoader<Flight> {
 

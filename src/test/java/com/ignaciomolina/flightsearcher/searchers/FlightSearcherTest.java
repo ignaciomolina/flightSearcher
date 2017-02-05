@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.ignaciomolina.flightsearcher.Passanger;
+import com.ignaciomolina.flightsearcher.Passenger;
 import com.ignaciomolina.flightsearcher.calculators.PriceCalculator;
 import com.ignaciomolina.flightsearcher.pojo.Flight;
 
@@ -30,7 +30,7 @@ public class FlightSearcherTest {
     private static final String DESTINATION = "IST";
 
     private Collection<Flight> flights;
-    private Collection<Passanger> passangers;
+    private Collection<Passenger> passengers;
     private FlightSearcher searcher;
 
     @Mock Flight cheapFlight;
@@ -43,9 +43,9 @@ public class FlightSearcherTest {
 
         MockitoAnnotations.initMocks(this);
 
-        given(calculator.calculate(cheapFlight, passangers, DAYS)).willReturn(MINOR_PRICE);
-        given(calculator.calculate(averageFlight, passangers, DAYS)).willReturn(MIDDLE_PRICE);
-        given(calculator.calculate(expensiveFlight, passangers, DAYS)).willReturn(MAJOR_PRICE);
+        given(calculator.calculate(cheapFlight, passengers, DAYS)).willReturn(MINOR_PRICE);
+        given(calculator.calculate(averageFlight, passengers, DAYS)).willReturn(MIDDLE_PRICE);
+        given(calculator.calculate(expensiveFlight, passengers, DAYS)).willReturn(MAJOR_PRICE);
 
         given(cheapFlight.getOrigin()).willReturn(ORIGIN);
         given(cheapFlight.getDestination()).willReturn(DESTINATION);
@@ -65,14 +65,14 @@ public class FlightSearcherTest {
     @Test
     public void shouldThreeFlightsSortedByPrice() {
 
-        List<Flight> sortedResult = searcher.search(ORIGIN, DESTINATION, passangers, DAYS);
+        List<Flight> sortedResult = searcher.search(ORIGIN, DESTINATION, passengers, DAYS);
 
         then(sortedResult).hasSize(3);
         then(sortedResult).containsSequence(cheapFlight, averageFlight, expensiveFlight);
 
-        given(calculator.calculate(cheapFlight, passangers, DAYS)).willReturn(MAJOR_PRICE + 1);
+        given(calculator.calculate(cheapFlight, passengers, DAYS)).willReturn(MAJOR_PRICE + 1);
 
-        List<Flight> newOrder = searcher.search(ORIGIN, DESTINATION, passangers, DAYS);
+        List<Flight> newOrder = searcher.search(ORIGIN, DESTINATION, passengers, DAYS);
 
         then(newOrder).hasSize(3);
         then(newOrder).containsSequence(averageFlight, expensiveFlight, cheapFlight);
@@ -81,7 +81,7 @@ public class FlightSearcherTest {
     @Test
     public void shouldFoundZeroFlightsForRoute() {
 
-        List<Flight> flights = searcher.search("BCN", "MAD", passangers, DAYS);
+        List<Flight> flights = searcher.search("BCN", "MAD", passengers, DAYS);
 
         then(flights).isEmpty();
     }
