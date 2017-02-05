@@ -38,6 +38,9 @@ public class PriceCalculator {
 
     public double calculate(Flight flight, Collection<Passanger> passangers, int days) {
 
+        Objects.requireNonNull(flight, "Flight cannot be null.");
+        Objects.requireNonNull(passangers, "Passangers collection cannot be null.");
+
         double result = 0.0D;
 
         for (Passanger passanger : passangers) {
@@ -59,10 +62,10 @@ public class PriceCalculator {
         if (days >= 31) {
 
             result *= DATE_DISCOUNT_FIRST_FACTOR;
-        } else if (days <= 30 && days >= 16) {
+        } else if (days >= 16) {
 
             result *= DATE_DISCOUNT_SECOND_FACTOR;
-        } else if (days <= 15 && days >= 3) {
+        } else if (days >= 3) {
 
             result *= DATE_DISCOUNT_THIRD_FACTOR;
         } else {

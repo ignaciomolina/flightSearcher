@@ -2,6 +2,7 @@ package com.ignaciomolina.flightsearcher.searchers;
 
 import static java.util.stream.Collectors.groupingBy;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -35,8 +36,10 @@ public class FlightSearcher {
     public List<Flight> search(String origin, String destination,
                                Collection<Passanger> passangers, int days) {
 
-        List<Flight> foundFlights = flightsIndex.get(origin + "-" + destination);
+        String route = origin + "-" + destination;
 
+        List<Flight> foundFlights = flightsIndex.getOrDefault(route,
+                                                              new ArrayList<>());
         List<Flight> sorted = foundFlights.stream()
                                               .sorted(new Comparator<Flight>() {
 

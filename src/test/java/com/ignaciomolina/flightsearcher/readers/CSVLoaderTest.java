@@ -3,10 +3,9 @@ package com.ignaciomolina.flightsearcher.readers;
 import static org.assertj.core.api.BDDAssertions.then;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -19,6 +18,7 @@ import org.junit.Test;
  */
 public class CSVLoaderTest {
 
+    private static final String TWO_ROWS_CSV = "twoRows.csv";
     private static final String EMPTY_CSV = "emptyflights.csv";
 
     private HelperLoader loader;
@@ -29,13 +29,21 @@ public class CSVLoaderTest {
         loader = new HelperLoader();
     }
 
+    @Test
+    public void shouldReturnListWithTwoElements() throws IOException {
+
+        Collection<String> collection = loader.load(TWO_ROWS_CSV);
+
+        then(collection).hasSize(2);
+    }
+
     @Ignore
     @Test
     public void shouldReturnEmptyList() throws IOException {
 
-        Collection<String> flights = loader.load(EMPTY_CSV);
+        Collection<String> collection = loader.load(EMPTY_CSV);
 
-        then(flights).isEmpty();
+        then(collection).isEmpty();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -58,9 +66,9 @@ public class CSVLoaderTest {
 
     public class HelperLoader extends CSVLoader<String> {
 
-        protected Set<String> parseLines(List<String> lines) {
+        protected List<String> parseLines(List<String> lines) {
 
-            return new HashSet<>(lines);
+            return new ArrayList<>(lines);
         }
     }
 }

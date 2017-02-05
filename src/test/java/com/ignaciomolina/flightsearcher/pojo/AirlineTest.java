@@ -87,10 +87,17 @@ public class AirlineTest {
     }
 
     @Test
+    public void shouldAirlineBeNotEqualToOtherObject() {
+
+        then(airline).isNotEqualTo(new Object());
+    }
+
+    @Test
     public void shouldAirlineBeNotEqualToNull() {
 
         then(airline).isNotEqualTo(null);
     }
+
     @Test(expected = NullPointerException.class)
     public void shouldNotAcceptNullCode() {
 

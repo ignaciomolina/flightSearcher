@@ -33,20 +33,19 @@ public abstract class CSVLoader<T> {
                                                filename);
         }
 
-        List<String> lines;
-
         try (InputStream is = this.getClass().getResourceAsStream(filename);
              BufferedReader br = new BufferedReader(new InputStreamReader(is,
                                                      StandardCharsets.UTF_8))) {
 
-             lines = br.lines().collect(Collectors.toList());
+            List<String> lines = br.lines().collect(Collectors.toList());
+
+            return parseLines(lines);
+
         } catch (Exception e) {
 
             throw new IllegalArgumentException("File " + filename + " cannot " +
                                                "be found in jar.");
         }
-
-        return parseLines(lines);
     }
 
     protected abstract Collection<T> parseLines(List<String> lines);

@@ -109,6 +109,12 @@ public class FlightTest {
     }
 
     @Test
+    public void shouldFlightBeNotEqualToOtherObject() {
+
+        then(flight).isNotEqualTo(new Object());
+    }
+
+    @Test
     public void shouldFlightBeNotEqualToNull() {
 
         then(flight).isNotEqualTo(null);

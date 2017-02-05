@@ -37,6 +37,27 @@ public class PassangerTest {
         then(Passanger.byName(plural)).isEqualTo(passanger);
     }
 
+    @Test
+    public void shouldReturnSingularName() {
+
+        then(passanger.getSingular()).isEqualTo(singular);
+    }
+
+    @Test
+    public void shouldReturnPluralName() {
+
+        then(passanger.getPlural()).isEqualTo(plural);
+    }
+
+    @Test
+    public void shouldCoverageValueOfAndValues() {
+
+        for (Passanger passanger : Passanger.values()) {
+
+            then(Passanger.valueOf(passanger.name())).isSameAs(passanger);
+        }
+    }
+
     @Test(expected=IllegalArgumentException.class)
     public void shouldThrowExceptionWhenNameDoesNotMatch() {
 
