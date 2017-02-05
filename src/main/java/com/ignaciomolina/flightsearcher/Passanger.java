@@ -1,5 +1,10 @@
 package com.ignaciomolina.flightsearcher;
 
+/**
+ * 
+ * @author imolina
+ *
+ */
 public enum Passanger {
 
     ADULT("adult", "adults"),
@@ -25,6 +30,6 @@ public enum Passanger {
             }
         }
 
-        throw new IllegalArgumentException("Unknown name: " + name);
+        throw new IllegalArgumentException("Unknown type of passanger: " + name);
     }
 }

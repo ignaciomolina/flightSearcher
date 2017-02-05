@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.ignaciomolina.flightsearcher.Passanger;
 import com.ignaciomolina.flightsearcher.calculators.PriceCalculator;
 import com.ignaciomolina.flightsearcher.pojo.Flight;
 
@@ -17,6 +18,7 @@ import com.ignaciomolina.flightsearcher.pojo.Flight;
 public class FlightSearcherTest {
 
     private Collection<Flight> flights;
+    private Collection<Passanger> passangers;
     private FlightSearcher searcher;
 
     @Mock PriceCalculator calculator;

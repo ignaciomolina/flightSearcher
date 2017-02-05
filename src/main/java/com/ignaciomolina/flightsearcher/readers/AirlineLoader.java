@@ -9,6 +9,11 @@ import java.util.regex.Pattern;
 
 import com.ignaciomolina.flightsearcher.pojo.Airline;
 
+/**
+ * 
+ * @author imolina
+ *
+ */
 public class AirlineLoader extends CSVLoader<Airline> {
 
     private static final String PATTERN = "^((?:[0-9]|[A-Z]){2}),(.*),([0-9]+(?:\\.[0-9]*)?)$";
